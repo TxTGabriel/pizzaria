@@ -1,6 +1,7 @@
 // src/store/store.js
 import { createStore } from 'vuex';
 import axios from 'axios';
+import dayjs from 'dayjs';
 
 export default createStore({
   state: {

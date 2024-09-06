@@ -2,13 +2,13 @@ import { Service } from 'moleculer';
 import connection from '../conexao/banco.js'; // Importa a conexão com o banco de dados
 import dayjs from 'dayjs';
 
+
 export default {
   name: 'orders',
   actions: {
     async create(ctx) {
       const { size, flavor } = ctx.params;
-
-      const created_at = dayjs().format('YYYY-MM-DD HH:MM:ss');      
+      const created_at = dayjs().format('YYYY-MM-DD HH:mm:ss');      
 
       return new Promise((resolve, reject) => {
         try{
@@ -20,7 +20,7 @@ export default {
               console.error('Erro ao inserir pedido:', error);
               reject(error);
             } else {
-              resolve({ id: results.insertId, size, flavor });
+              resolve({ id: results.insertId, size, flavor, created_at});
             }
           }
         );

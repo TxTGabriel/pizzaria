@@ -98,7 +98,7 @@ const emitSaveOrder = () =>
   }
 
   const size = items.value[selectedOptionIndex.value].name;
-  const created_at = dayjs().format('YYYY-MM-DD HH:MM:ss');      
+  const created_at = dayjs().format('YYYY-MM-DD HH:mm:ss');      
 
   const order = { size, flavor: selectedFlavor.value, created_at };
   
@@ -119,10 +119,12 @@ const emitSaveOrder = () =>
 .container {
   max-width: 600px;
   margin: 0 auto;
+  margin-top: 200px;
+  margin-left: 550px;
 }
 
 table {
-  width: 100%;
+  width: 50%;
   border-collapse: collapse;
 }
 

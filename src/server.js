@@ -21,12 +21,14 @@ app.get('/api/orders', (req, res) => {
 });
 
 app.post('/api/orders', (req, res) => {
-  console.log(req.body); // Adicione este console.log para verificar o corpo da requisição
+  console.log(req.body);
   const { order } = req.body;
-  if (!order || !order.size || !order.flavor) {
+  const created_at = dayjs().format('YYYY-MM-DD HH:mm:ss');      
+
+  if (!order || !order.size || !order.flavor || !order.created_at) {
    return res.status(400).send('Dados do pedido inválidos.');
   }
-  const created_at = dayjs().format('YYYY-MM-DD HH:MM:ss');      
+      
 
 
   connection.query('INSERT INTO orders SET ?', order, (err, results) => {

@@ -15,7 +15,7 @@
           <tr v-for="order in orders" :key="order.id">
             <td>{{ order.size }}</td>
             <td>{{ order.flavor }}</td>
-            <td>{{ order.date }}</td>
+            <td>{{ formatarData(order.created_at) }}</td>
             <td>
               <button @click="editOrder(order)">Editar</button>
               <button @click="deleteOrder(order.id)">Excluir</button>
@@ -33,9 +33,15 @@
 <script setup>
 import { onMounted, computed } from 'vue';
 import { useStore } from 'vuex';
+import dayjs from 'dayjs';
 
 const store = useStore();
 const orders = computed(() => store.getters.allOrders);
+
+
+const formatarData =(date) => {
+  return dayjs(date).format('YYYY/MM/DD HH:mm:ss')
+}      
 
 onMounted(() => {
   store.dispatch('fetchOrders');
@@ -45,7 +51,7 @@ const editOrder = (order) => {
   const updatedOrder = prompt('Editar pedido (formato: Tamanho, Sabor)', `${order.size}, ${order.flavor}`);
   if (updatedOrder) {
     const [size, flavor] = updatedOrder.split(',').map(item => item.trim());
-    store.dispatch('saveOrder', { ...order, size, flavor, date: new Date().toISOString() });
+    formatarData(store.dispatch('saveOrder', { ...order, size, flavor}));
   }
 };
 
@@ -59,7 +65,7 @@ const deleteOrder = (orderId) => {
 <style scoped>
 .historico {
   max-width: 800px;
-  margin: 0 auto;
+  margin: 250px;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
