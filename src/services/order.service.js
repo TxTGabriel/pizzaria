@@ -1,6 +1,7 @@
 import { Service } from 'moleculer';
 import connection from '../conexao/banco.js'; // Importa a conexão com o banco de dados
 import dayjs from 'dayjs';
+import { resolve } from 'path';
 
 
 export default {
@@ -8,19 +9,19 @@ export default {
   actions: {
     async create(ctx) {
       const { size, flavor } = ctx.params;
-      const created_at = dayjs().format('YYYY-MM-DD HH:mm:ss');      
+      const created_at1 = dayjs().format('YYYY-MM-DD HH:mm:ss');      
 
       return new Promise((resolve, reject) => {
         try{
         connection.query(
-          'INSERT INTO pedidos (size, flavor, created_at) VALUES (?, ?, ?)',
-          [size, flavor, created_at],
+          'INSERT INTO pedidos (size, flavor, created_at1) VALUES (?, ?, ?)',
+          [size, flavor, created_at1],
           (error, results) => {
             if (error) {
               console.error('Erro ao inserir pedido:', error);
               reject(error);
             } else {
-              resolve({ id: results.insertId, size, flavor, created_at});
+              resolve({ id: results.insertId, size, flavor, created_at1});
             }
           }
         );
@@ -43,7 +44,6 @@ export default {
         });
       });
     },
-
     async remove(ctx) {
       const { id } = ctx.params;
       return new Promise((resolve, reject) => {

@@ -100,7 +100,7 @@ const emitSaveOrder = () =>
   const size = items.value[selectedOptionIndex.value].name;
   const created_at = dayjs().format('YYYY-MM-DD HH:mm:ss');      
 
-  const order = { size, flavor: selectedFlavor.value, created_at };
+  const order = { size, flavor: selectedFlavor.value, created_at};
   
   store.dispatch('saveOrder', order)
     .then(() => {

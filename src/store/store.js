@@ -19,6 +19,7 @@ export default createStore({
     },
   },
   actions: {
+    
     async fetchOrders({ commit }) {
       try {
         const response = await axios.get('http://localhost:3000/api/orders');
@@ -43,6 +44,14 @@ export default createStore({
         console.error('Erro ao excluir pedido:', error);
       }
     },
+    async updateOrder({commit}, orderId){
+      try{
+        await axios.put(`http://localhost:3000/api/orders/${orderId}`);
+        commit('PUT_ORDER', orderId);
+      }catch (error){
+        console.log('erro ao atualizar pedido',error);
+      }
+    }
   },
   getters: {
     allOrders: state => state.orders,

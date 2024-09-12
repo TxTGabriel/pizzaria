@@ -2,7 +2,6 @@
 import express from 'express';
 import cors from 'cors';
 import connection from './conexao/banco.js';
-import dayjs from 'dayjs';
 
 const app = express();
 const port = 3000;
@@ -22,10 +21,9 @@ app.get('/api/orders', (req, res) => {
 
 app.post('/api/orders', (req, res) => {
   console.log(req.body);
-  const { order } = req.body;
-  const created_at = dayjs().format('YYYY-MM-DD HH:mm:ss');      
+  const { order } = req.body;   
 
-  if (!order || !order.size || !order.flavor || !order.created_at) {
+  if (!order || !order.size || !order.flavor) {
    return res.status(400).send('Dados do pedido inválidos.');
   }
       
@@ -35,8 +33,9 @@ app.post('/api/orders', (req, res) => {
     if (err) {
       console.error('Erro ao salvar pedido:', err);
       return res.status(500).send('Erro ao salvar pedido.');
+      
     }
-    res.json({ id: results.insertId, ...order, created_at});
+    res.json({ id: results.insertId, order});
   });
 });
 
