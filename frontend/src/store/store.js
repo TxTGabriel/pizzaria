@@ -44,10 +44,10 @@ export default createStore({
         console.error('Erro ao excluir pedido:', error);
       }
     },
-    async updateOrder({commit}, orderId){
+    async updateOrder({commit}, order){
       try{
-        await axios.put(`http://localhost:3000/api/orders/${orderId}`);
-        commit('PUT_ORDER', orderId);
+        await axios.put(`http://localhost:3000/api/orders/${order.id}`, { order });
+        commit('PUT_ORDER', order.size, order.flavor);
       }catch (error){
         console.log('erro ao atualizar pedido',error);
       }

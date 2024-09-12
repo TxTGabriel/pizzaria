@@ -1,7 +1,7 @@
 // src/server.js
 import express from 'express';
 import cors from 'cors';
-import connection from './conexao/banco.js';
+import connection from '../../backend/conexao/banco.js';
 
 const app = express();
 const port = 3000;

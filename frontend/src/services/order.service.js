@@ -1,5 +1,5 @@
 import { Service } from 'moleculer';
-import connection from '../conexao/banco.js'; // Importa a conexão com o banco de dados
+import connection from '../../../backend/conexao/banco.js'; // Importa a conexão com o banco de dados
 import dayjs from 'dayjs';
 import { resolve } from 'path';
 
