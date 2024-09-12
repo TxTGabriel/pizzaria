@@ -1,7 +1,6 @@
-// src/server.js
 import express from 'express';
 import cors from 'cors';
-import connection from '../../backend/conexao/banco.js';
+import connection from './banco.js';  
 
 const app = express();
 const port = 3000;
@@ -9,7 +8,7 @@ const port = 3000;
 app.use(cors());
 app.use(express.json());
 
-app.get('/api/orders', (req, res) => {
+app.get('/order', (req, res) => {
   connection.query('SELECT * FROM orders', (err, results) => {
     if (err) {
       console.error('Erro ao buscar pedidos:', err);
