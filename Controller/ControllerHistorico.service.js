@@ -1,5 +1,5 @@
 import { Service } from 'moleculer';
-import connection from '../../../backend/conexao/banco.js'; // Importa a conexão com o banco de dados
+import connection from '../conexao/banco.js'; // Importa a conexão com o banco de dados
 import dayjs from 'dayjs';
 import { resolve } from 'path';
 
@@ -58,6 +58,28 @@ export default {
           }
         });
       });
+    },
+    async update(ctx)
+    {
+      const {id,size, flavor} = ctx.params;
+      const updated_at = dayjs().format('YYYY/MM/DD HH:mm:ss');
+      
+      return new Promise ((resolve, reject) => {
+        connection.query('UPDATE pedidos SET size = ?, flavor = ?, updated_at = ?, WHERE id = ?',
+          [size, flavor, updated_at, id],
+          (error, results) => {
+            if (error) {
+              console.error('Erro ao atualizar pedido: ', error);
+              reject(errpr);
+            }
+            else if (results.affectedRows>0){
+              resolve ({id, size, flavor, updated_at});
+            } else{
+              resolve ({error: 'Pedido não encontrado'});
+            }
+          }
+        )
+      })
     }
   }
 };

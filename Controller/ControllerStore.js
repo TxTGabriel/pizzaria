@@ -1,4 +1,3 @@
-// src/store/store.js
 import { createStore } from 'vuex';
 import axios from 'axios';
 import dayjs from 'dayjs';
@@ -16,6 +15,14 @@ export default createStore({
     },
     DELETE_ORDER(state, orderId) {
       state.orders = state.orders.filter(order => order.id !== orderId);
+    },
+    UPDATE_ORDER(state, updatedOrder)
+    {
+      const index = state.orders.findIndex(order => order.id === updatedOrder.id);
+      if (index !== -1)
+      {
+        state.orders.splice(index, 1, updatedOrder);
+      }
     },
   },
   actions: {
@@ -44,10 +51,10 @@ export default createStore({
         console.error('Erro ao excluir pedido:', error);
       }
     },
-    async updateOrder({commit}, order){
+    async updateOrder({commit}, updatedOrder){
       try{
-        await axios.put(`http://localhost:3000/api/orders/${order.id}`, { order });
-        commit('PUT_ORDER', order.size, order.flavor);
+        const response = await axios.put(`http://localhost:3000/api/orders/${updatedOrder.id}`, {order:updatedOrder});
+        commit('UPDATE_ORDER', response.data);
       }catch (error){
         console.log('erro ao atualizar pedido',error);
       }

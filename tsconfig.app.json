@@ -1,6 +1,6 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "backend/conexao", "backend/router", "../frontend/App.vue"],
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "backend/conexao", "backend/router", "../frontend/App.vue", "src/views/Historico.vue", "src/views/Inicio.vue", "src/views/Pedido.vue", "store", "Controller/ControllerStore.js", "Controller/ControllerHistorico.service.js"],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
